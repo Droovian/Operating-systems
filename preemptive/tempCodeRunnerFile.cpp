@@ -1,0 +1,1 @@
+cout << "\nProcess   BURST_Time   Arrival_Time  Waiting_Time Turnaround_Time:\n";

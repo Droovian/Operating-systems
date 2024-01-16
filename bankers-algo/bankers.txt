@@ -1,0 +1,46 @@
+// Mark all processes as unfinished
+    bool fin[N];
+    for (int i = 0; i < n; i++)
+        fin[i] = false, safeSeq[i] = 0;
+    // Initializing work equal to available
+    int work[N];
+    for (int i = 0; i < m; i++)
+        work[i] = available[i];
+    // Find an index i such that the process is not finished and needs less than or equal to work
+    int count = 0;
+    while (count < n)
+    {
+        bool found = false;
+        for (int i = 0; i < n; i++)
+        {
+            if (!fin[i])
+            {
+                int j;
+                for (j = 0; j < m; j++)
+                {
+                    if (need[i][j] > work[j])
+                        break;
+                }
+                if (j == m)
+                {
+                    for (int k = 0; k < m; k++){
+                        work[k] = work[k] + allocation[i][k];
+                    }
+
+                    safeSeq[count] = i;
+                    count = count+1;
+                    fin[i] = true;
+                    found = true;
+                }
+            }
+        }
+        // If no process is found, the system is not in a safe state
+        if (!found)
+        {
+            cout << "The system is not in a safe state\n";
+            return false;
+        }
+    }
+    // If all processes are finished, the system is in a safe state
+    cout << "The system is in a safe state\n";
+    return true;
